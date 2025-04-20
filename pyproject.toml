@@ -1,6 +1,9 @@
 [project]
 name = "fastapi-uv-starter"
 version = "0.1.0"
+authors = [
+    { name = "Angelos Panagiotopoulos", email = "angelospanag@protonmail.com" },
+]
 description = "A starter project using Python, FastAPI and uv"
 readme = "README.md"
 requires-python = ">=3.13"
