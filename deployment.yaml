@@ -25,10 +25,27 @@ spec:
       labels:
         app: poetry-test
     spec:
+      securityContext:
+        runAsNonRoot: true  # Pod must not run as root
+        runAsUser: 1000     # Run pod as non-root UID 1001
       containers:
       - name: poetry-test
         image: poetry-test:latest
-        imagePullPolicy: always
+        imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort:  8000
+          protocol: TCP
+        securityContext:
+          readOnlyRootFilesystem: true # Makes root filesystem read-only
+          allowPrivilegeEscalation: false  # No privilege escalation
+          privileged: false   # Ensure it doesn't run in privileged mode
+          capabilities:
+            drop:
+              - ALL
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
 
